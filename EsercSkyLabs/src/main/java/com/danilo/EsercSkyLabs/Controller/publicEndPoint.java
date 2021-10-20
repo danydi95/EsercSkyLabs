@@ -2,10 +2,10 @@ package com.danilo.EsercSkyLabs.Controller;
 
 import com.danilo.EsercSkyLabs.Entity.Records;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -18,7 +18,7 @@ public class publicEndPoint {
     private JdbcTemplate jdbcTemplate;
 
     @GetMapping(value="/{offset}/{count}")
-    public String GetDenormalizedRecords(@PathVariable(value="offset") String offset, @PathVariable(value="count")String count)
+    public ResponseEntity<Records> GetDenormalizedRecords(@PathVariable(value="offset") String offset, @PathVariable(value="count")String count)
     {
         List<Object> a = jdbcTemplate.query("SELECT age FROM records", (resultSet, rowNum) -> resultSet.getString("age"));
 
@@ -26,7 +26,11 @@ public class publicEndPoint {
         {
             System.out.println(a.get(i).toString());
         }
-        return offset+count;
+
+        Records r = new Records(30);
+
+
+        return ResponseEntity.ok(r);
     }
 
 

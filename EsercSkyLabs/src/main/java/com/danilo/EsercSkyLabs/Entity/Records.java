@@ -41,6 +41,11 @@ public class Records {
         this.over_50k = over_50k;
     }
 
+    public Records(int age)
+    {
+        this.age=age;
+    }
+
     public int getId() {
         return id;
     }
