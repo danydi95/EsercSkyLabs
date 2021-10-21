@@ -13,12 +13,11 @@ import java.util.List;
 
 public class publicEndPoint {
 
-    //Spring Boot will automagically wire this object using application.properties:
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
     @GetMapping(value="/{offset}/{count}")
-    public ResponseEntity<Records> GetDenormalizedRecords(@PathVariable(value="offset") String offset, @PathVariable(value="count")String count)
+    public void GetDenormalizedRecords(@PathVariable(value="offset") String offset, @PathVariable(value="count")String count)
     {
         List<Object> a = jdbcTemplate.query("SELECT age FROM records", (resultSet, rowNum) -> resultSet.getString("age"));
 
@@ -27,10 +26,9 @@ public class publicEndPoint {
             System.out.println(a.get(i).toString());
         }
 
-        Records r = new Records(30);
 
 
-        return ResponseEntity.ok(r);
+
     }
 
 
