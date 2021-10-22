@@ -44,7 +44,7 @@ public class publicEndPoint {
         String sql_limit = ""+((Integer.parseInt(count)));
         String sql= "SELECT " + sql_select + " FROM " + sql_joins;
         if(count!="-1")
-            sql += " LIMIT " + sql_limit + "OFFSET " + offset;
+            sql += " LIMIT " + sql_limit + " OFFSET " + offset;
         List<DenormalizedRecords> results = jdbcTemplate.query(sql, new DenormalizedRecordRowMapper());
 
         return ResponseEntity.ok(results);

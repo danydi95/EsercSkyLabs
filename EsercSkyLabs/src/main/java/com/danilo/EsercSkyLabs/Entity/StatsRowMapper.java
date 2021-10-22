@@ -15,7 +15,7 @@ public class StatsRowMapper implements  RowMapper<Stats> {
                 rs.getFloat("capital_loss_sum"),
                 rs.getFloat("capital_loss_avg"),
                 rs.getInt("over_50k_count"),
-                rs.getInt("over_50k_count"));
+                rs.getInt("under_50k_count"));
         return S;
 
     }
