@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.BufferedWriter;
 import java.util.List;
 
 @RestController
@@ -70,16 +68,12 @@ public class publicEndPoint {
             S.get(i).setAggregationValue(Integer.parseInt(value));
         }
         return ResponseEntity.ok(S);
-
     }
 
     //CSV denormalized records download endpoint
     @GetMapping(value="/denorm/download")
     public void CSV_denorm_download()
     {
-         List<DenormalizedRecords> out = GetDenormalizedRecords("0","-1").getBody();
 
-        //return Response.ok(myCsvText).header("Content-Disposition", "attachment; filename=" + fileName).build();
     }
-
 }
