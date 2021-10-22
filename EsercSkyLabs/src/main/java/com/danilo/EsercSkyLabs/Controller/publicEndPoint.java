@@ -1,5 +1,6 @@
 package com.danilo.EsercSkyLabs.Controller;
 
+import com.danilo.EsercSkyLabs.CSVUtils.CSVUtils;
 import com.danilo.EsercSkyLabs.Entity.DenormalizedRecords;
 import com.danilo.EsercSkyLabs.Entity.DenormalizedRecordRowMapper;
 import com.danilo.EsercSkyLabs.Entity.Stats;
@@ -8,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -72,8 +76,33 @@ public class publicEndPoint {
 
     //CSV denormalized records download endpoint
     @GetMapping(value="/denorm/download")
-    public void CSV_denorm_download()
+    public void CSV_denorm_download(HttpServletResponse response) throws IOException
     {
-
+        String filename = "denorm_records_"+java.time.LocalDateTime.now()+".csv";
+        response.setContentType("text/csv");
+        response.setHeader("content-disposition", "attachment; filename="+filename);
+        List<DenormalizedRecords> out = GetDenormalizedRecords("0","-1").getBody();
+        String head = "Id, " +
+                "Age, " +
+                "Workclass_id, " +
+                "Workclass_name, " +
+                "Education_level_id, " +
+                "Education_level_name, " +
+                "Education_num, " +
+                "Marital_status_id, " +
+                "Marital_status_name, " +
+                "Occupation_id, " +
+                "Occupation_name, " +
+                "Relationship_id, " +
+                "Relationship_name, " +
+                "Race_id, Race_name, " +
+                "Sex_id, Sex_name, " +
+                "Capital_gain, " +
+                "Capital_loss, " +
+                "Hourse_week, " +
+                "Country_id, " +
+                "Country_name, " +
+                "Over_50k\n";
+        CSVUtils.downloadCsv(response.getWriter(), out, head) ;
     }
 }
