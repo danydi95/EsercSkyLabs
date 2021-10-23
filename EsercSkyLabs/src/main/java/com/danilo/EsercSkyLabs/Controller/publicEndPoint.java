@@ -62,8 +62,6 @@ public class publicEndPoint {
                 "FROM records " +
                 "WHERE " + type + " = " + value;
 
-        System.out.println(sql);
-
         List<Stats> S = jdbcTemplate.query(sql,new StatsRowMapper());
 
         for(int i=0;i<S.size();i++)
